@@ -479,7 +479,7 @@ func (d *DuoClient) DoStatus(txid, sid string) (auth string, status StatusResp, 
 }
 
 func (d *DuoClient) DoRedirect(url string, sid string) (string, error) {
-	client := http.Client{}
+	client := http.Client{ Timeout: 120 * time.Second }
 	statusData := "sid=" + sid
 	url = "https://" + d.Host + url
 	req, err := http.NewRequest("POST", url, bytes.NewReader([]byte(statusData)))
